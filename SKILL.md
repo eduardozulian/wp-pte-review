@@ -71,12 +71,12 @@ Geralmente o suficiente é o nome do plugin/tema. Passo a passo:
    comum em pedidos de PTE). Esse é o padrão mais frequente, não uma regra fixa: sempre
    sugerir ao GTE que confirme se é o filtro correto para o caso antes de exportar, já
    que outros filtros podem ser necessários dependendo do que está sendo avaliado.
-5. No fim da página, clicar em **Export** e selecionar formato **PO**.
+5. No fim da página, no dropdown ao lado de **Export**, selecionar **"Only matching the
+   filter"** (o padrão exporta o projeto inteiro e ignora o filtro escolhido no passo 4).
+   Depois clicar em **Export** e escolher o formato **PO**.
 
-- **Cuidado com o filtro de export.** Um export "All Current" (ou equivalente) pode trazer
-  todas as strings do projeto, traduzidas ou não — se aparecer tudo vazio, não assumir que
-  o candidato não traduziu nada; primeiro confirmar se o filtro de export foi o correto
-  antes de tratar isso como reprovação.
+- **Se o export sair vazio ou muito maior que o esperado**, checar primeiro se o dropdown
+  ficou em "Only matching the filter" antes de tratar como problema do candidato.
 
 ### 2.2 Texto original (`msgid`) em idioma não-inglês
 
@@ -340,6 +340,9 @@ em vez do processo padrão de candidatura
 
 ## Changelog do processo
 
+- **Ago/2026** (patch): seção 2.1, passo 5 passou a explicitar a seleção de "Only matching
+  the filter" no dropdown antes de clicar em Export, com o caveat abaixo reduzido a nota
+  de troubleshooting.
 - **Ago/2026**: adicionada seção "O que é um GTE e o que se espera nessa revisão",
   deixando claro que o candidato envia um link/post de pedido, não um `.po` — cabe ao
   GTE localizar e exportar o arquivo (seção 2.1); incluído o checklist oficial do guia
