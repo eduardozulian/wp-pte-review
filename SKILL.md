@@ -353,6 +353,3 @@ em vez do processo padrão de candidatura
   comunidade; adicionadas regras de estilo por canal (seção 6); seção 5 reescrita sem
   checkboxes, com padrão fixo explícito.
 - **Jun/2026**: versão inicial consolidada a partir de revisões reais de PTE.
-
-*Última atualização deste documento: a ser preenchida por você conforme o handbook
-oficial mudar.*
