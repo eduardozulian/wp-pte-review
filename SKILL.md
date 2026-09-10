@@ -335,21 +335,3 @@ em vez do processo padrão de candidatura
   plugin (ex.: um gateway de pagamento brasileiro como PagSeguro/PagBank sugerindo
   desenvolvedor nativo) ajudam a calibrar expectativa antes de abrir o arquivo, mas a
   avaliação final deve sempre se basear no conteúdo do `.po` em si, não nesses sinais.
-
----
-
-## Changelog do processo
-
-- **Ago/2026** (patch): seção 2.1, passo 5 passou a explicitar a seleção de "Only matching
-  the filter" no dropdown antes de clicar em Export, com o caveat abaixo reduzido a nota
-  de troubleshooting.
-- **Ago/2026**: adicionada seção "O que é um GTE e o que se espera nessa revisão",
-  deixando claro que o candidato envia um link/post de pedido, não um `.po` — cabe ao
-  GTE localizar e exportar o arquivo (seção 2.1); incluído o checklist oficial do guia
-  de GTE. Reescrita a seção 1 no mesmo sentido. Adicionado princípio geral de linguagem
-  humana (seção 0); adicionada seção 2.1 (passo a passo de download do `.po`); expandida
-  a política de `msgid` em idioma não-inglês para cobrir a bifurcação "PTE desnecessário"
-  vs. "requer correção de i18n" (seção 2.2), com referência a precedente real da
-  comunidade; adicionadas regras de estilo por canal (seção 6); seção 5 reescrita sem
-  checkboxes, com padrão fixo explícito.
-- **Jun/2026**: versão inicial consolidada a partir de revisões reais de PTE.
