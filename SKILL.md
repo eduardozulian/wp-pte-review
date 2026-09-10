@@ -1,5 +1,5 @@
 ---
-name: pte-review-ptbr
+name: wp-pte-review
 description: Revisar solicitações de PTE (Project Translation Editor) para traduções pt-BR do WordPress.org. Use para avaliar se um candidato deve virar PTE de um plugin ou tema, dado o link do post de solicitação ou o nome do projeto.
 ---
 
