@@ -21,19 +21,35 @@ O detalhamento fica em [`references/`](./references/), lido sob demanda:
 - [`non-english-source-strings.md`](./references/non-english-source-strings.md) — o que fazer quando o texto original não está em inglês
 - [`message-templates.md`](./references/message-templates.md) — tom da mensagem ao candidato e estilo por canal (Slack, fórum interno, fórum internacional)
 
-### Como skill do Claude Code
+## Estrutura
 
-O `SKILL.md` inclui o frontmatter YAML padrão de skill (`name`, `description`). Pra usar localmente, criar um symlink do repositório inteiro:
-
-```bash
-ln -s "$(pwd)" ~/.claude/skills/wp-pte-review
+```text
+wp-pte-review/
+├── SKILL.md
+├── README.md
+├── LICENSE
+└── references/
+    ├── message-templates.md
+    ├── non-english-source-strings.md
+    ├── po-export.md
+    └── review-checklist.md
 ```
 
-O symlink precisa apontar pro diretório, não só pro `SKILL.md`, porque o `SKILL.md` referencia os arquivos em `references/`. Com o symlink, qualquer edição no repositório vale na hora, sem precisar sincronizar cópia.
+## Instalação no Claude Code
 
-Depois disso, o Claude Code aciona a skill quando o pedido do usuário se encaixar no `description` (revisão de PTE pt-BR), ou por invocação direta com `/wp-pte-review`.
+Clonar direto no diretório de skills:
 
-### Como referência humana
+```bash
+git clone https://github.com/eduardozulian/wp-pte-review.git ~/.claude/skills/wp-pte-review
+```
+
+Esse é o único passo. O `git clone` cria os diretórios que faltarem, então funciona mesmo em uma instalação do Claude Code que nunca teve nenhuma skill. Pra atualizar depois, rodar `git pull` dentro de `~/.claude/skills/wp-pte-review`.
+
+O clone precisa ser do repositório inteiro, não só do `SKILL.md`, porque o `SKILL.md` referencia os arquivos em `references/`.
+
+Depois disso, o Claude Code aciona a skill quando o pedido do usuário se encaixar no `description` (revisão de PTE pt-BR), ou por invocação direta com `/wp-pte-review`. Pode ser necessário reiniciar o Claude Code pra skill aparecer.
+
+## Como referência humana
 
 O `SKILL.md` e os arquivos em `references/` também funcionam como documento de leitura direta, sem necessidade de ferramenta. Toda a lógica de decisão está em prosa.
 
