@@ -1,19 +1,19 @@
 ---
 name: pte-review-ptbr
-description: Revisar solicitações de PTE (Project Translation Editor) para traduções pt-BR do WordPress.org. Use quando um GTE pedir apoio pra avaliar se um candidato deve virar PTE de um plugin ou tema, dado o link do post de solicitação ou o nome do projeto.
+description: Revisar solicitações de PTE (Project Translation Editor) para traduções pt-BR do WordPress.org. Use para avaliar se um candidato deve virar PTE de um plugin ou tema, dado o link do post de solicitação ou o nome do projeto.
 ---
 
 # Instruções de revisão — Solicitações de PTE (pt-BR)
 
-> Documento de referência para quando o GTE pedir apoio na revisão de um pedido de
-> alguém para se tornar Editor de Tradução de Projeto (PTE) de um plugin ou tema.
+> Documento de referência para revisar um pedido de alguém para se tornar Editor de
+> Tradução de Projeto (PTE) de um plugin ou tema. Escrito para o GTE que conduz a revisão.
 > Base: handbook da Equipe Brasileira de Tradução do WordPress
 > (https://br.wordpress.org/team/handbook/traducao/).
 
-## O que é um GTE e o que se espera nessa revisão
+## O que se espera nessa revisão
 
-Um GTE (Editor de Tradução Geral) tem acesso para aprovar ou rejeitar traduções em
-qualquer projeto da localidade pt-BR, e é responsável por designar PTEs (Editores de
+Como GTE (Editor de Tradução Geral), você tem acesso para aprovar ou rejeitar traduções
+em qualquer projeto da localidade pt-BR, e é responsável por designar PTEs (Editores de
 Tradução de Projeto). Guia oficial:
 https://br.wordpress.org/team/handbook/traducao/equipe/gte/
 
@@ -21,8 +21,8 @@ https://br.wordpress.org/team/handbook/traducao/equipe/gte/
 — seja no site da equipe brasileira (https://br.wordpress.org/team/) ou no fórum
 internacional de Polyglots (https://make.wordpress.org/polyglots/) — geralmente contendo
 o nome/link do projeto e, às vezes, o link direto para o próprio perfil de tradutor ou
-para as strings enviadas. **É o GTE (ou eu, a pedido do GTE) quem precisa localizar o
-projeto em translate.wordpress.org e exportar o `.po` a partir de lá** — ver seção 2.1.
+para as strings enviadas. **Cabe a você localizar o projeto em translate.wordpress.org e
+exportar o `.po` a partir de lá** — ver seção 2.1.
 
 O checklist oficial que baseia toda essa revisão (do guia de GTE) é:
 - O candidato parece falar português brasileiro fluentemente?
@@ -46,11 +46,10 @@ precisar saber o formato técnico do arquivo.
 
 ## 1. Quando este processo é acionado
 
-Sempre que o GTE pedir algo como "revisa esse pedido pra ver se [pessoa] pode ser PTE de
-[projeto]" — normalmente compartilhando o link do post de solicitação (site da equipe
-brasileira ou fórum internacional) ou apenas o nome do projeto/candidato. Não é
-necessário que o GTE já tenha o `.po` em mãos; localizar e exportar o arquivo faz parte
-do processo (seção 2.1).
+Quando você for avaliar se alguém pode ser PTE de um projeto — normalmente partindo do
+link do post de solicitação (site da equipe brasileira ou fórum internacional) ou apenas
+do nome do projeto/candidato. Não é necessário ter o `.po` em mãos; localizar e exportar
+o arquivo faz parte do processo (seção 2.1).
 
 ## 2. Formato esperado do arquivo e como obtê-lo
 
@@ -69,8 +68,8 @@ Geralmente o suficiente é o nome do plugin/tema. Passo a passo:
    especificamente sobre uma versão em desenvolvimento).
 4. Filtrar geralmente por **"Waiting"** (strings aguardando aprovação — o cenário mais
    comum em pedidos de PTE). Esse é o padrão mais frequente, não uma regra fixa: sempre
-   sugerir ao GTE que confirme se é o filtro correto para o caso antes de exportar, já
-   que outros filtros podem ser necessários dependendo do que está sendo avaliado.
+   confirmar se é o filtro correto para o caso antes de exportar, já que outros filtros
+   podem ser necessários dependendo do que está sendo avaliado.
 5. No fim da página, no dropdown ao lado de **Export**, selecionar **"Only matching the
    filter"** (o padrão exporta o projeto inteiro e ignora o filtro escolhido no passo 4).
    Depois clicar em **Export** e escolher o formato **PO**.
@@ -278,7 +277,7 @@ inconsistência criada do zero pelo tradutor.
 **Revisão detalhada string por string:** só quando pedida explicitamente.
 
 **Quando o post for no fórum internacional (em inglês):** o formato que funcionou bem em
-revisões anteriores foi gerar primeiro o resumo detalhado em português (pra o GTE decidir
+revisões anteriores foi gerar primeiro o resumo detalhado em português (pra você decidir
 o que entra na versão pública) e só depois a mensagem em inglês — mais enxuta, preferindo
 **linkar a string específica filtrada no GlotPress** em vez de citar o texto problemático
 por extenso entre aspas. Ao montar esses links, confirmar o filtro de status correto
