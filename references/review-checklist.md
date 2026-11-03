@@ -103,7 +103,7 @@ inconsistência criada do zero pelo tradutor.
   Uma tradução que diverge do uso estabelecido em outros projetos merece ser apontada.
 - **Glossário completo** — todo termo do glossário geral (e do glossário do projeto, se
   houver) que aparece no texto original deve seguir a tradução definida. O
-  `scripts/glossary-check.py` lista os candidatos a desvio (ver passo 5 do `SKILL.md`).
+  `scripts/glossary-check.py` lista os candidatos a desvio (ver passo 7 do `SKILL.md`).
   Para julgar cada candidato:
   - **Classe da palavra importa.** O glossário separa substantivo de verbo ("display":
     *exibir* como verbo, *exibição* como substantivo; "Block" como substantivo é *bloco*,

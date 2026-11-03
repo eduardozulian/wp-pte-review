@@ -44,9 +44,8 @@ O checklist oficial que baseia toda essa revisão (do guia de GTE) é:
 - O candidato enviou sugestões de tradução suficientes?
 - As traduções seguem as boas práticas de tradução?
 
-As duas primeiras perguntas exigem contexto que normalmente não está no `.po` em si —
-olhar o post do pedido e, se necessário, o perfil do candidato em
-profiles.wordpress.org. As últimas duas são o foco técnico deste documento.
+O passo 1 do fluxo de trabalho mostra como responder cada uma. As duas últimas são o
+foco técnico deste documento.
 
 ## Referências
 
@@ -78,19 +77,26 @@ vez de `msgid`; "tradução" ou "texto traduzido" em vez de `msgstr`. Objetivo: 
 pessoa (revisor, candidato, ou outro GTE lendo depois) deve conseguir entender sem
 precisar saber o formato técnico do arquivo.
 
-## 1. Quando este processo é acionado
+## 1. Fluxo de trabalho
 
-Quando você for avaliar se alguém pode ser PTE de um projeto — normalmente partindo do
-link do post de solicitação (site da equipe brasileira ou fórum internacional) ou apenas
-do nome do projeto/candidato. Não é necessário ter o `.po` em mãos; localizar e exportar
-o arquivo faz parte do processo (`references/po-export.md`).
-
-## 2. Fluxo de trabalho
-
-1. Ler o `.po` e listar os pares texto original / tradução. Para arquivos grandes (UI
+1. **Ler o post do pedido** e anotar: o projeto (slug), o nome de usuário do candidato
+   no WordPress.org, se quem pede é o próprio autor do plugin/tema, e o canal (site da
+   equipe brasileira ou fórum internacional). Com isso, responder as perguntas de
+   contexto do checklist oficial:
+   - **Já é PTE de outro projeto?** O perfil em `profiles.wordpress.org/<usuario>/` mostra
+     o selo "Translation Editor" para quem já é editor de tradução, mas não diz de quais
+     projetos nem de qual idioma. Usar o selo como indício e, se não der para confirmar,
+     deixar a pergunta em aberto no resumo para o GTE.
+   - **Parece falar português brasileiro fluentemente?** Responder a partir das próprias
+     traduções (passo 6) e do texto do post, se estiver em português.
+2. **Exportar o `.po`** com as sugestões do candidato (`references/po-export.md`). A
+   contagem do passo 4 responde se ele **enviou sugestões suficientes**. O handbook não
+   define um número mínimo: informar a quantidade no resumo e, se for pequena demais para
+   avaliar com confiança, dizer isso (ver seção 3).
+3. Ler o `.po` e listar os pares texto original / tradução. Para arquivos grandes (UI
    real, não só readme), ler em blocos — não confiar só na visualização truncada do meio
    do arquivo.
-2. **Rodar checagens automatizadas antes/junto da leitura manual de fluência** (especialmente
+4. **Rodar checagens automatizadas antes/junto da leitura manual de fluência** (especialmente
    em arquivos grandes ou de UI real, onde bugs técnicos têm mais impacto que em um readme):
    - **Contagem de traduzidas, vazias e fuzzy:** usar as ferramentas do gettext, que
      entendem o formato, em vez de `grep`. Um `grep '^msgstr ""$'` conta errado: pega o
@@ -128,7 +134,7 @@ o arquivo faz parte do processo (`references/po-export.md`).
      isso: ler as traduções curtas (botões, rótulos, títulos) procurando o padrão.
      Descontar nomes próprios e nomes de método de pagamento/produto que funcionam quase
      como marca (zona cinzenta, ver `references/review-checklist.md`).
-3. Marcar separadamente:
+5. Marcar separadamente:
    - Strings vazias (não traduzidas)
    - Strings `fuzzy`
    - Strings com placeholders (`%s`, `%d`, `%1$s`, `===VAR===`, `###VAR###`, `%@`, etc.)
@@ -137,11 +143,11 @@ o arquivo faz parte do processo (`references/po-export.md`).
      python3 ~/.claude/skills/wp-pte-review/scripts/placeholder-check.py candidato.po
      ```
      (regras em `references/review-checklist.md`, "Placeholders intactos")
-4. Avaliar cada string traduzida com `references/review-checklist.md`. **Defeitos técnicos
+6. Avaliar cada string traduzida com `references/review-checklist.md`. **Defeitos técnicos
    são sempre bloqueantes**: texto duplicado/colado, corrupção de encoding e placeholders
    ou tags quebrados impedem a recomendação de PTE independente da qualidade do resto do
    arquivo.
-5. **Cruzar todas as traduções com o glossário**, o geral pt-BR e o do projeto, se
+7. **Cruzar todas as traduções com o glossário**, o geral pt-BR e o do projeto, se
    existir. O script baixa os dois e lista os candidatos a desvio:
    ```bash
    python3 ~/.claude/skills/wp-pte-review/scripts/glossary-check.py candidato.po --projeto wp-plugins/<slug>
@@ -164,13 +170,30 @@ o arquivo faz parte do processo (`references/po-export.md`).
    - Sem Python disponível: baixar o CSV (link acima; glossário do projeto em
      `https://translate.wordpress.org/projects/wp-plugins/<slug>/stable/pt-br/default/glossary/-export/`,
      que retorna 404 se o projeto não tiver glossário) e cruzar os termos manualmente.
-6. Compilar o resultado no formato da seção 3, incluindo uma lista **"Desvios do
+8. Compilar o resultado no formato da seção 2, incluindo uma lista **"Desvios do
    glossário"** com os desvios confirmados e, separadas, as exceções que você considerou
    justificadas, com o motivo.
 
-## 3. Formato de saída
+## 2. Formato de saída
 
 **Padrão quando não especificado:** resumo executivo + mensagem pronta.
+
+O resumo executivo segue sempre esta estrutura, para que revisões diferentes possam ser
+comparadas:
+
+1. **Recomendação**, em uma linha, com uma destas três opções:
+   - **Recomendar o PTE**: sem defeitos bloqueantes e com qualidade suficiente.
+   - **Pedir ajustes antes**: há defeitos bloqueantes ou problemas recorrentes que o
+     candidato precisa corrigir (rejeitando as próprias sugestões e reenviando).
+   - **Pendente**: falta algo que não depende da qualidade da tradução (texto original
+     fora do inglês, volume pequeno demais para avaliar, pergunta de contexto sem resposta).
+2. **Checklist oficial**: as quatro perguntas do guia de GTE, cada uma com resposta curta
+   (sim, não, ou "não foi possível confirmar") e a evidência.
+3. **Números**: strings traduzidas, vazias e fuzzy (passo 4).
+4. **Defeitos bloqueantes**, se houver, primeiro e com os exemplos.
+5. **Desvios do glossário** e **outros problemas**, agrupados por tipo e indicando se são
+   recorrentes ou pontuais.
+6. **Pontos positivos**, para a mensagem ao candidato não ser só de correções.
 
 **Revisão detalhada string por string:** só quando pedida explicitamente.
 
@@ -184,7 +207,7 @@ pode não retornar nada se a string já tiver outro status).
 
 Para o tom e a estrutura da mensagem, ver `references/message-templates.md`.
 
-## 4. Limites e bom senso
+## 3. Limites e bom senso
 
 - O glossário não é absoluto: se o contexto exigir uma tradução diferente, isso é
   aceitável — mas deve ser sinalizado como exceção justificada, não como erro.
