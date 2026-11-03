@@ -34,7 +34,8 @@ wp-pte-review/
 │   ├── po-export.md
 │   └── review-checklist.md
 └── scripts/
-    └── glossary-check.py
+    ├── glossary-check.py
+    └── placeholder-check.py
 ```
 
 ## Requisitos

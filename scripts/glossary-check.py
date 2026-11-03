@@ -111,7 +111,7 @@ def ler_po(texto):
 def limpar(texto):
     """Remove tags HTML e placeholders, para não casar termos dentro de código."""
     texto = re.sub(r"<[^>]+>", " ", texto)
-    return re.sub(r"%(\d+\$)?[sdfu@]|===\w+===", " ", texto)
+    return re.sub(r"%(\d+\$)?[sdfu@]|===\w+===|###\w+###", " ", texto)
 
 
 def normalizar_pt(texto):

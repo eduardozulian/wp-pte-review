@@ -130,8 +130,12 @@ o arquivo faz parte do processo (`references/po-export.md`).
 3. Marcar separadamente:
    - Strings vazias (não traduzidas)
    - Strings `fuzzy`
-   - Strings com placeholders (`%s`, `%d`, `%1$s`, `===VAR===`, `%@`, etc.) para checar
-     se foram preservados corretamente
+   - Strings com placeholders (`%s`, `%d`, `%1$s`, `===VAR===`, `###VAR###`, `%@`, etc.)
+     ou tags HTML, para checar se foram preservados corretamente:
+     ```bash
+     python3 ~/.claude/skills/wp-pte-review/scripts/placeholder-check.py candidato.po
+     ```
+     (regras em `references/review-checklist.md`, "Placeholders intactos")
 4. Avaliar cada string traduzida com `references/review-checklist.md`. **Defeitos técnicos
    são sempre bloqueantes**: texto duplicado/colado, corrupção de encoding e placeholders
    ou tags quebrados impedem a recomendação de PTE independente da qualidade do resto do

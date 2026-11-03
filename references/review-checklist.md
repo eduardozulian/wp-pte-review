@@ -14,8 +14,9 @@ sempre bloqueantes**, independente da qualidade do resto do arquivo — não tra
   sugestões, não tradução ruim. Mostraria texto quebrado pro usuário final.
 - **Corrupção de encoding** — caracteres especiais (acentos, travessão) virando sequências
   de bytes sem sentido.
-- **Placeholders ou tags quebrados** — `%s`/`%d`/`%1$s` removidos, trocados de tipo (não
-  só de posição), ou tags HTML mal formadas que quebrariam o layout/funcionamento da página.
+- **Placeholders ou tags quebrados** — `%s`/`%d`/`%1$s` removidos, trocados de tipo,
+  placeholders sem número trocados de ordem, ou tags HTML mal formadas que quebrariam o
+  layout/funcionamento da página. Detalhes em "Placeholders intactos", abaixo.
 
 Esses três pontos, se presentes, devem aparecer primeiro e com destaque no resumo e na
 mensagem ao candidato — não importa quão boa seja a fluência do resto do arquivo, **não
@@ -119,7 +120,24 @@ inconsistência criada do zero pelo tradutor.
 - **Comportamento do código preservado** — nenhuma alteração em parâmetros como
   `target="_blank"`, tags HTML ou lógica da string.
 - **Placeholders intactos** — `%s`, `%d`, `%1$s`/`%2$s`, `%%`, `===VAR===`, `%@` etc.
-  devem aparecer exatamente como no original (podem trocar de posição, nunca de tipo).
+  devem aparecer na tradução na mesma quantidade e com o mesmo tipo do original.
+  - **Mudar de posição só vale para placeholders numerados.** `%2$s contém %1$d macacos`
+    é uma tradução válida de `%d macacos estão contidos em %s`. Já com dois `%s` sem
+    número (`%s respondeu a %s`), a ordem é fixa: se a tradução inverter a frase, os
+    valores trocam de lugar sem nenhum aviso (quem respondeu vira quem recebeu). Nesse
+    caso a tradução precisa manter a ordem original ou o código precisa passar a usar
+    placeholders numerados.
+  - **Plural:** quando o original no singular tem `%d` ("%d item"), a tradução no
+    singular também deve manter o `%d`. Em pt-BR a forma singular também é usada para
+    zero, então "Um item" mostraria "Um item" quando houver 0 itens.
+  - Verificação automática:
+    ```bash
+    python3 ~/.claude/skills/wp-pte-review/scripts/placeholder-check.py candidato.po
+    ```
+    O script compara placeholders, tags HTML e atributos (`href`, `target`, `rel`...)
+    entre original e tradução e avisa quando há dois ou mais placeholders sem número.
+    Os exports do translate.wordpress.org não marcam as strings como `php-format`, por
+    isso `msgfmt --check-format` não detecta esses problemas.
 - **Sem links novos/aleatórios** — só devem existir links que já estavam no original ou
   que apontam para domínios wordpress.org/bbpress.org/documentação oficial.
 - **Marcas e nomes preservados** — nome de marcas (WordPress, WooCommerce etc.) e nomes
