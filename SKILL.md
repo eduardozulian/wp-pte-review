@@ -121,6 +121,7 @@ o arquivo faz parte do processo (`references/po-export.md`).
    - **Termos com erro recorrente** (ver `references/review-checklist.md`):
      ```bash
      grep -niE '^msgstr.*(por favor|habilit)' candidato.po
+     grep -nE '^msgstr.*(Wordpress|Woocommerce)' candidato.po   # grafia da marca
      ```
    - **Padrão de Title Case carregado do inglês** (maiúscula em cada palavra da
      tradução, quando o português pede só a primeira). Não há comando confiável para
@@ -191,6 +192,10 @@ Para o tom e a estrutura da mensagem, ver `references/message-templates.md`.
   problema espalhados pelo projeto.
 - Se o volume de strings enviadas for muito baixo para avaliar com confiança, sinalizar
   isso em vez de aprovar/reprovar precipitadamente.
+- Quando o volume de strings for grande e a qualidade tão baixa que separar as boas das
+  ruins levaria tempo demais, o handbook considera razoável o GTE **rejeitar em massa**
+  ("Colabore", em boas práticas). O agente pode sugerir isso no resumo, com os exemplos
+  que justificam; a decisão e a ação são do GTE.
 - **Nunca afirmar nem negar a origem de uma tradução** (tradução automática vs. humana).
   Não há como confirmar isso só pelo texto final — avaliar a tradução pelo que ela é
   (fluente ou não, consistente ou não, correta ou não), não pela suposição de como foi

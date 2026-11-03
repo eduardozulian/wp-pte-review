@@ -3,6 +3,12 @@
 Baseado em: https://br.wordpress.org/team/handbook/traducao/boas-praticas/
 (versão em inglês, espelhada quase 1:1: https://make.wordpress.org/polyglots/handbook/translating/expectations/)
 
+Cada seção da página de boas práticas tem um item correspondente aqui. As seções
+"O que é internacionalização?", "Aprenda com outras localizações" e "Colabore" orientam
+quem traduz e não viram critério de revisão. Do "Colabore" vem só a possibilidade de
+rejeitar em massa, tratada na seção de limites do `SKILL.md`. Se a página mudar, conferir
+de novo esta correspondência.
+
 O checklist está dividido em camadas com prioridade diferente. **Defeitos técnicos são
 sempre bloqueantes**, independente da qualidade do resto do arquivo — não tratar como
 "ponto de estilo" na comunicação com o candidato.
@@ -34,8 +40,9 @@ tradução pode ser perfeitamente consistente e ainda soar estranha, e vice-vers
   cada termo já carrega a ideia de quantidade/simultaneidade, não precisa reforçar com
   os dois ao mesmo tempo).
 - **Formalidade equivalente** — o tom informal/educado do original foi mantido sem
-  formalizar demais (ex.: "Use" em vez de "Utilize") nem inserir elementos novos
-  (emojis, gírias) que não estavam no original?
+  formalizar demais (ex.: "Use" em vez de "Utilize", "têm" em vez de "possuem") nem
+  inserir elementos novos (emojis, gírias) que não estavam no original? Exceção: um emoji
+  que já estava no original e não é culturalmente adequado pode ser trocado.
 - **Sem gírias ou jargão de nicho** — termos como *pingback*, *trackback*, *feed* podem
   ficar em inglês (são exceções conhecidas); o resto deve ser compreensível para
   qualquer usuário.
@@ -61,14 +68,22 @@ tradução pode ser perfeitamente consistente e ainda soar estranha, e vice-vers
 - **Tamanho da tradução** — aceitável ser 20–30% maior que o original corrido, mas em
   botões/menus deve tentar ficar mais compacto.
 - **Atenção a ambiguidades e regência verbal** — string traduzida faz sentido sem o
-  contexto do código/tela? Regência do verbo está correta em português?
+  contexto do código/tela? ("Backup settings" pode ser "Fazer backup das configurações"
+  ou "Configurações de backup"; só o contexto decide.) Regência do verbo está correta em
+  português? Tradução literal costuma errar aqui: "pesquisar todos os computadores", e
+  não "pesquisar **por** todos os computadores".
 - **Gerúndio com cuidado** — geralmente vira substantivo ("Printing new copies" →
   "Impressão de novas cópias"); gerúndio só quando indica ação em andamento agora. Se for
   título de seção, pode virar instrução no infinitivo ("Writing e-mails" → "Como escrever
-  e-mails").
+  e-mails"). Em locuções verbais, evitar o gerúndio: "You will be writing" → "Você vai
+  escrever" ou "Você escreverá", nunca "Você vai estar escrevendo".
+- **Pronomes desnecessários** — a maioria dos pronomes do inglês não precisa ser
+  traduzida ("Refer to this article if you need assistance" → "Consulte este artigo caso
+  precise de ajuda", sem "você").
 - **Cuidado com sinais de tradução automática não revisada** — estrutura estranha, erro de
-  concordância, espaço extra colado em tags (ex.: "Registre-se <br> abaixo" em vez de
-  "Registre-se<br>abaixo"). **Importante:** isso é uma checagem de sintomas, não uma
+  concordância, espaço extra em volta de tags ou placeholders (ex.: "Registre-se <br>
+  abaixo" em vez de "Registre-se<br>abaixo"), o que pode quebrar o funcionamento da
+  string. **Importante:** isso é uma checagem de sintomas, não uma
   conclusão sobre origem — ver a seção de limites e bom senso no `SKILL.md`.
 
 ## Consistência terminológica
@@ -82,6 +97,10 @@ inconsistência criada do zero pelo tradutor.
 
 - **Consistência interna geral** — antes de apontar como erro, checar se a variação já
   existia no inglês original.
+- **Consistência com outros projetos** — para termos fora do glossário, ver como outros
+  projetos pt-BR traduziram na ferramenta de consistência
+  (https://translate.wordpress.org/consistency/, escolher o conjunto `pt-br/default`).
+  Uma tradução que diverge do uso estabelecido em outros projetos merece ser apontada.
 - **Glossário completo** — todo termo do glossário geral (e do glossário do projeto, se
   houver) que aparece no texto original deve seguir a tradução definida. O
   `scripts/glossary-check.py` lista os candidatos a desvio (ver passo 5 do `SKILL.md`).
@@ -106,10 +125,10 @@ inconsistência criada do zero pelo tradutor.
   - `please` → glossário diz explicitamente **não traduzir** ("não pedir por favor ao
     usuário"). Erro típico: 8-9 de 9 ocorrências corretas, com 1 exceção isolada mantendo
     "Por favor" — vale grep especificamente por isso.
-  - `successfully` — guia de boas práticas recomenda omitir ("instalado com sucesso" →
-    "instalado"), mas isso é mais uma preferência de estilo do que regra rígida; "com
-    sucesso" é uso comum e aceitável em pt-BR quando usado de forma consistente no
-    projeto. Não tratar como erro automático, só notar se quebrar consistência interna.
+  - `successfully` — o guia de boas práticas diz que essa palavra "pode e deve ser
+    eliminada" ("The plugin was installed successfully" → "O plugin foi instalado"). Pedir
+    o ajuste, mas como ponto de estilo, não como defeito bloqueante. Se "com sucesso"
+    aparecer só em parte das strings, apontar também a inconsistência.
 - Cruzar com o glossário **específico do projeto**, se existir (alguns plugins grandes,
   como o WooCommerce, têm termos próprios — ex.: "tax" não é "taxa").
 
@@ -120,7 +139,9 @@ inconsistência criada do zero pelo tradutor.
 - **Comportamento do código preservado** — nenhuma alteração em parâmetros como
   `target="_blank"`, tags HTML ou lógica da string.
 - **Placeholders intactos** — `%s`, `%d`, `%1$s`/`%2$s`, `%%`, `===VAR===`, `%@` etc.
-  devem aparecer na tradução na mesma quantidade e com o mesmo tipo do original.
+  devem aparecer na tradução na mesma quantidade e com o mesmo tipo do original. Em
+  strings com placeholders, o sinal de porcentagem é escrito `%%` (`%d%%` é válido e
+  mostra "50%"); um `%` sozinho na tradução quebra a string.
   - **Mudar de posição só vale para placeholders numerados.** `%2$s contém %1$d macacos`
     é uma tradução válida de `%d macacos estão contidos em %s`. Já com dois `%s` sem
     número (`%s respondeu a %s`), a ordem é fixa: se a tradução inverter a frase, os
@@ -139,21 +160,37 @@ inconsistência criada do zero pelo tradutor.
     Os exports do translate.wordpress.org não marcam as strings como `php-format`, por
     isso `msgfmt --check-format` não detecta esses problemas.
 - **Sem links novos/aleatórios** — só devem existir links que já estavam no original ou
-  que apontam para domínios wordpress.org/bbpress.org/documentação oficial.
+  que apontam para domínios wordpress.org/bbpress.org/documentação oficial. Link
+  comercial inserido na tradução é falta grave (o handbook diz que pode levar à remoção
+  da pessoa da equipe de tradução): não recomendar PTE enquanto ele existir.
 - **Marcas e nomes preservados** — nome de marcas (WordPress, WooCommerce etc.) e nomes
-  de plugins/temas **nunca** são traduzidos. Atenção: quando o "nome do plugin" no projeto
-  de tradução é composto por marca + tagline descritiva (ex.: "Product Upload: AI Product
-  Importer for WooCommerce"), é aceitável traduzir só a parte descritiva depois dos dois
-  pontos, mantendo a marca intacta.
+  de plugins/temas **nunca** são traduzidos, e a grafia da marca é respeitada:
+  "Wordpress" ou "Woocommerce" (sem a maiúscula no meio) é erro. Atenção: quando o
+  "nome do plugin" no projeto de tradução é composto por marca + tagline descritiva
+  (ex.: "Product Upload: AI Product Importer for WooCommerce"), é aceitável traduzir só a
+  parte descritiva depois dos dois pontos, mantendo a marca intacta.
 
 ## Outras boas práticas formais
 
 - **Pontuação numérica invertida** — milhar com ponto, decimal com vírgula (1.500 / 1,5).
   Atenção: não aplicar essa conversão a números de versão de software (ex.: "WordPress
   6.2" continua "6.2", não "6,2").
-- **Palavras desnecessárias removidas** — "please" e "successfully" geralmente não
-  precisam de tradução literal (ver também as checagens obrigatórias de glossário acima).
+- **Palavras desnecessárias removidas** — "please" e "successfully" devem ser eliminadas
+  ("Please login to view this content" → "Acesse o site para ver este conteúdo"). Ver
+  também as checagens obrigatórias de glossário acima.
 - **Data e hora no padrão BR** — datas por extenso "dia de mês de ano"; formato curto
-  `dd/mm/aaaa`; hora em formato 24h (`HH:mm`), não AM/PM.
+  `dd/mm/aaaa`; hora em formato 24h (`HH:mm`), não AM/PM. Plugins e temas costumam ter
+  **strings de formato de data do PHP** para traduzir; elas não são texto, são códigos:
+
+  | Original | Tradução esperada | Resultado |
+  |---|---|---|
+  | `F j, Y` | `j \d\e F \d\e Y` | 27 de maio de 2003 |
+  | `m/d/Y` | `d/m/Y` | 27/05/2003 |
+  | `g:i a` | `H:i` | 18:30 |
+  | `g:i:s a` | `H:i:s` | 18:30:21 |
+
+  Traduzir as letras ("F j, Y" → "M d, A") ou esquecer as barras invertidas em `\d\e`
+  quebra a data exibida. O formato de texto "18h30" é correto em português, mas o
+  handbook prefere o formato digital (`18:30`) em plugins e temas.
 - **Outros detalhes** — `#` → `nº`; verbos em botões/links de ação no infinitivo
   ("Update" → "Atualizar").
