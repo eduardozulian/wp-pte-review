@@ -136,15 +136,32 @@ o arquivo faz parte do processo (`references/po-export.md`).
    são sempre bloqueantes**: texto duplicado/colado, corrupção de encoding e placeholders
    ou tags quebrados impedem a recomendação de PTE independente da qualidade do resto do
    arquivo.
-5. Cruzar termos relevantes com o glossário oficial pt-BR (link acima). Se eu não tiver
-   certeza do termo padrão atual, devo consultar o glossário (busca/fetch) antes de
-   apontar inconsistência — o glossário muda com o tempo. Dois termos têm histórico de
-   erro recorrente em revisões anteriores e merecem checagem obrigatória mesmo sem
-   suspeita prévia: `enable`/`disable` e `please` (detalhe em
-   `references/review-checklist.md`).
-6. Verificar se há glossário **específico do projeto** (alguns plugins/temas grandes,
-   como o WooCommerce, têm o próprio).
-7. Compilar o resultado no formato da seção 3.
+5. **Cruzar todas as traduções com o glossário**, o geral pt-BR e o do projeto, se
+   existir. O script baixa os dois e lista os candidatos a desvio:
+   ```bash
+   python3 ~/.claude/skills/wp-pte-review/scripts/glossary-check.py candidato.po --projeto wp-plugins/<slug>
+   ```
+   (Temas: `--projeto wp-themes/<slug>`. Se a skill estiver instalada em outro lugar,
+   ajustar o caminho.) Como o script baixa a versão atual do glossário a cada execução,
+   ele acompanha as mudanças no glossário. Os termos do glossário do projeto têm
+   prioridade sobre os do geral (exemplo: no WooCommerce, "tax" é "imposto", não "taxa").
+
+   Como ler o resultado (critérios em `references/review-checklist.md`):
+   - Cada item é um **candidato**, não um erro confirmado. O script considera flexões
+     ("ativar" aceita "ativado", "ativação"), mas não entende o contexto. Ler cada caso e
+     decidir: desvio real, exceção justificada pelo contexto ou falso positivo (por
+     exemplo, o termo em inglês usado em outro sentido).
+   - Ler as **notas do glossário** que o script mostra: algumas regras estão só nelas
+     ("please": não traduzir; "sorry" e "thank you": traduzir só se for o objetivo da
+     string; meses sempre em minúsculas).
+   - `enable`/`disable` e `please` têm histórico de erro recorrente. Conferir esses
+     termos mesmo que o script não acuse nada.
+   - Sem Python disponível: baixar o CSV (link acima; glossário do projeto em
+     `https://translate.wordpress.org/projects/wp-plugins/<slug>/stable/pt-br/default/glossary/-export/`,
+     que retorna 404 se o projeto não tiver glossário) e cruzar os termos manualmente.
+6. Compilar o resultado no formato da seção 3, incluindo uma lista **"Desvios do
+   glossário"** com os desvios confirmados e, separadas, as exceções que você considerou
+   justificadas, com o motivo.
 
 ## 3. Formato de saída
 

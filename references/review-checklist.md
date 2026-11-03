@@ -81,6 +81,21 @@ inconsistência criada do zero pelo tradutor.
 
 - **Consistência interna geral** — antes de apontar como erro, checar se a variação já
   existia no inglês original.
+- **Glossário completo** — todo termo do glossário geral (e do glossário do projeto, se
+  houver) que aparece no texto original deve seguir a tradução definida. O
+  `scripts/glossary-check.py` lista os candidatos a desvio (ver passo 5 do `SKILL.md`).
+  Para julgar cada candidato:
+  - **Classe da palavra importa.** O glossário separa substantivo de verbo ("display":
+    *exibir* como verbo, *exibição* como substantivo; "Block" como substantivo é *bloco*,
+    do editor, e não se aplica a "blocked spam").
+  - **As notas do glossário são regras.** Algumas entradas não têm tradução e a regra está
+    só na nota ("please": não traduzir; "thank you": traduzir só quando agradecer é o
+    objetivo da string).
+  - **Desvio justificado não é erro**, mas precisa de motivo concreto no contexto da
+    string (ver seção de limites e bom senso no `SKILL.md`).
+  - **Inconsistência dentro do arquivo agrava o desvio**: o mesmo termo traduzido de
+    formas diferentes em strings diferentes é pior que um desvio aplicado de forma
+    consistente.
 - **Checagens obrigatórias de glossário** (dois termos com histórico de erro recorrente
   em revisões anteriores — checar mesmo sem suspeita prévia):
   - `enable`/`disable` → glossário define **ativar**/**desativar**. "Habilitar"/

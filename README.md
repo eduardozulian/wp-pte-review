@@ -28,12 +28,20 @@ wp-pte-review/
 ├── SKILL.md
 ├── README.md
 ├── LICENSE
-└── references/
-    ├── message-templates.md
-    ├── non-english-source-strings.md
-    ├── po-export.md
-    └── review-checklist.md
+├── references/
+│   ├── message-templates.md
+│   ├── non-english-source-strings.md
+│   ├── po-export.md
+│   └── review-checklist.md
+└── scripts/
+    └── glossary-check.py
 ```
+
+## Requisitos
+
+- `python3` (só biblioteca padrão) para os scripts em `scripts/`.
+- `gettext` (`msgfmt`, `msgattrib`) para as contagens do `.po`: `brew install gettext`
+  no macOS, `apt install gettext` no Debian/Ubuntu.
 
 ## Instalação no Claude Code
 
@@ -45,7 +53,15 @@ git clone https://github.com/eduardozulian/wp-pte-review.git ~/.claude/skills/wp
 
 Esse é o único passo. O `git clone` cria os diretórios que faltarem, então funciona mesmo em uma instalação do Claude Code que nunca teve nenhuma skill. Pra atualizar depois, rodar `git pull` dentro de `~/.claude/skills/wp-pte-review`.
 
-O clone precisa ser do repositório inteiro, não só do `SKILL.md`, porque o `SKILL.md` referencia os arquivos em `references/`.
+O clone precisa ser do repositório inteiro, não só do `SKILL.md`, porque o `SKILL.md` referencia os arquivos em `references/` e `scripts/`. O `SKILL.md` chama os scripts por `~/.claude/skills/wp-pte-review/scripts/`; se o clone for para outro lugar, o agente precisa ajustar esse caminho.
+
+### Codex
+
+O Codex lê skills de `~/.agents/skills/`. Para usar a mesma cópia nas duas ferramentas, criar um link simbólico depois do clone:
+
+```bash
+mkdir -p ~/.agents/skills && ln -s ~/.claude/skills/wp-pte-review ~/.agents/skills/wp-pte-review
+```
 
 Depois disso, o Claude Code aciona a skill quando o pedido do usuário se encaixar no `description` (revisão de PTE pt-BR), ou por invocação direta com `/wp-pte-review`. Pode ser necessário reiniciar o Claude Code pra skill aparecer.
 
