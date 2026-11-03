@@ -92,21 +92,41 @@ o arquivo faz parte do processo (`references/po-export.md`).
    do arquivo.
 2. **Rodar checagens automatizadas antes/junto da leitura manual de fluência** (especialmente
    em arquivos grandes ou de UI real, onde bugs técnicos têm mais impacto que em um readme):
-   - Contagem real de vazias/fuzzy via grep (`grep -c '^msgstr ""$'`, `grep -c fuzzy`) — não
-     confiar só em leitura visual. Atenção: strings multi-linha no formato `.po` abrem com
-     `msgstr ""` seguido de linhas de continuação entre aspas; isso **não** é uma string vazia,
-     é só o formato de string longa. Confirmar visualmente antes de contar como vazia.
-   - Duas frases coladas na mesma tradução sem separador (sinal de erro de merge/cópia de
-     sugestões, não de tradução ruim) — buscar padrão de ponto final seguido de letra
-     maiúscula sem espaço dentro da mesma string (`\.[A-Z]`).
-   - Corrupção de encoding (mojibake clássico de UTF-8 lido como Latin-1 e reconvertido,
-     geralmente aparecendo como "â" seguido de caracteres de controle invisíveis onde devia
-     haver um travessão "—" ou outro caractere acentuado). Comparar ocorrências de
-     caracteres especiais no original com as da tradução.
-   - Padrão de Title Case carregado do inglês (maiúscula em cada palavra da tradução,
-     quando o português pede só a primeira). Descontar nomes próprios e nomes de
-     método de pagamento/produto que funcionam quase como marca (zona cinzenta — ver
-     `references/review-checklist.md`).
+   - **Contagem de traduzidas, vazias e fuzzy:** usar as ferramentas do gettext, que
+     entendem o formato, em vez de `grep`. Um `grep '^msgstr ""$'` conta errado: pega o
+     cabeçalho do arquivo e as strings longas (que abrem com `msgstr ""` seguido de linhas
+     de continuação), e não pega plurais vazios (`msgstr[0] ""`). Um `grep fuzzy` também
+     pega qualquer string que contenha a palavra "fuzzy".
+     ```bash
+     msgfmt --statistics -o /dev/null candidato.po   # ex.: "120 translated, 2 fuzzy, 3 untranslated"
+     msgattrib --untranslated candidato.po           # lista as não traduzidas
+     msgattrib --only-fuzzy candidato.po             # lista as fuzzy
+     ```
+     (`msgfmt` e `msgattrib` vêm no pacote `gettext`: `brew install gettext` no macOS,
+     `apt install gettext` no Debian/Ubuntu.)
+   - **Duas frases coladas na mesma tradução sem separador** (sinal de erro de
+     merge/cópia de sugestões, não de tradução ruim): ponto final seguido de letra
+     maiúscula sem espaço. Buscar só nas traduções e com uma classe que inclua
+     maiúsculas acentuadas; `[A-Z]` não pega "É" nem "Á":
+     ```bash
+     LC_ALL=en_US.UTF-8 grep -n '^msgstr.*\.[[:upper:]]' candidato.po
+     ```
+     Descontar falsos positivos como nomes de domínio e números de versão.
+   - **Corrupção de encoding** (mojibake: UTF-8 lido como Latin-1 ou Windows-1252 e
+     reconvertido, como "Ã§" no lugar de "ç" ou "â€”" no lugar de "—"):
+     ```bash
+     grep -nE 'Ã.|â€' candidato.po
+     ```
+     Também comparar os caracteres especiais do original com os da tradução.
+   - **Termos com erro recorrente** (ver `references/review-checklist.md`):
+     ```bash
+     grep -niE '^msgstr.*(por favor|habilit)' candidato.po
+     ```
+   - **Padrão de Title Case carregado do inglês** (maiúscula em cada palavra da
+     tradução, quando o português pede só a primeira). Não há comando confiável para
+     isso: ler as traduções curtas (botões, rótulos, títulos) procurando o padrão.
+     Descontar nomes próprios e nomes de método de pagamento/produto que funcionam quase
+     como marca (zona cinzenta, ver `references/review-checklist.md`).
 3. Marcar separadamente:
    - Strings vazias (não traduzidas)
    - Strings `fuzzy`
