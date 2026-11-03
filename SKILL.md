@@ -10,6 +10,20 @@ description: Revisar solicitações de PTE (Project Translation Editor) para tra
 > Base: handbook da Equipe Brasileira de Tradução do WordPress
 > (https://br.wordpress.org/team/handbook/traducao/).
 
+## Papel de quem usa esta skill
+
+Quando um agente (Claude Code, Codex ou outro) segue estas instruções, ele **prepara** a
+revisão para o GTE: baixa e analisa as strings, escreve o resumo e o rascunho da mensagem.
+**A decisão e as ações públicas são sempre do GTE humano.** O agente não deve, por conta
+própria:
+
+- aprovar ou recusar o pedido de PTE;
+- aprovar, rejeitar ou editar strings no translate.wordpress.org;
+- publicar ou responder no site da equipe, no fórum de Polyglots ou no Slack.
+
+Essas ações afetam um voluntário real e ficam públicas. O agente entrega o material e o
+GTE decide o que fazer com ele. As referências a "você" neste documento se dirigem ao GTE.
+
 ## O que se espera nessa revisão
 
 Como GTE (Editor de Tradução Geral), você tem acesso para aprovar ou rejeitar traduções
