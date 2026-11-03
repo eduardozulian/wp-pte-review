@@ -6,11 +6,10 @@ autor, não do tradutor — mas vale duas situações distintas, que mudam a res
 candidato:
 
 - **Se o autor não pretende disponibilizar o plugin em outros idiomas**: PTE não é
-  necessário nesse cenário. O plugin vai funcionar sempre só no idioma-fonte escolhido
-  (pt-BR ou outro), porque o WordPress trata as strings originais como en_US
-  internamente — um site com o WordPress configurado em inglês nunca aciona as funções
-  de tradução, então não há função prática pro PTE existir enquanto o `msgid` não for
-  en_US.
+  necessário nesse cenário. O WordPress trata o texto original como se fosse en_US: ele
+  é exibido em sites em inglês e em qualquer idioma que não tenha tradução. Um plugin
+  escrito em português já aparece em português sem tradução nenhuma, então um PTE pt-BR
+  não teria o que fazer enquanto o texto original não estiver em inglês.
 - **Se o autor quer o plugin disponível em múltiplos idiomas**: é necessário primeiro
   corrigir o texto original no código para en_US. O pedido de PTE fica pendente disso —
   aprovar PTE num projeto cujo texto-fonte ainda não é traduzível não resolve nada na
